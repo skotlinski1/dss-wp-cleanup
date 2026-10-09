@@ -27,3 +27,22 @@ define('DSS_WP_CLEANUP_DISABLED', true);
 
 Wtyczka niczego wtedy nie rejestruje i niczego nie zmienia w bazie, więc strona wraca do zachowania rdzenia.
 Usunięcie linii przywraca działanie. Ta sama stała służy do porównań z wtyczką i bez niej.
+
+## Sprawdzenie po wdrożeniu
+
+Po wdrożeniu i po każdej większej aktualizacji WordPressa:
+
+1. W źródle wpisu nie ma `wp-emoji`, `EditURI`, `rel='shortlink'`, `https://api.w.org/` ani `json+oembed`.
+   Jeśli któreś jest, wtyczka nie działa albo strona ma w cache starą wersję (wyczyść cache i odśwież).
+2. Odpięcia są na miejscu. `remove_action` na powiązaniu, którego w nowym WordPressie już nie ma, nie zgłasza
+   błędu, więc brak błędów PHP niczego nie potwierdza. Sprawdź wprost:
+
+   ```bash
+   wp eval 'var_dump(has_action("wp_head", "print_emoji_detection_script"), has_action("wp_head", "rsd_link"), has_action("wp_head", "wp_oembed_add_discovery_links"));'
+   ```
+
+   Każda wartość ma być `false`. Z `--exec='define("DSS_WP_CLEANUP_DISABLED", true);'` to samo polecenie
+   pokazuje priorytety z rdzenia (7, 10 i 4); inne liczby znaczą, że rdzeń zmienił priorytet i odpięcie trzeba
+   poprawić.
+
+Lista wszystkich haków z priorytetami: [DZIALANIE.md](DZIALANIE.md#haki-aktywne).
