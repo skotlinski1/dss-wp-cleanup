@@ -5,7 +5,7 @@ i zasoby rdzenia WordPressa, których strona nie potrzebuje, a które kosztują 
 serwera. To narzędzie na własne potrzeby, bez gwarancji zgodności z innymi konfiguracjami.
 
 Bloki rdzenia wyłącza `dss-no-blocks`, zbędne funkcje WooCommerce `dss-lean-woocommerce`, a to, co pomaga
-atakującemu (meta `generator`, XML-RPC, dane o autorach), `dss-wp-security`.
+atakującemu (meta `generator`, XML-RPC, dane o autorach), `dss-wp-hardening`.
 
 **Dokumentacja:** [docs/](docs/README.md). Instalacja przez Composera w projekcie DSS WP Manage:
 [COMPOSER.md](COMPOSER.md).

@@ -96,13 +96,13 @@ bajty, żądania albo pracę serwera. Każda funkcja ma jedno miejsce:
 | Gutenberg i bloki rdzenia | `dss-no-blocks` |
 | zbędne funkcje i zasoby WooCommerce, także jego bloki | `dss-disable-woo-bloatware` (`dss/lean-woocommerce`) |
 | zbędne albo ciężkie wyjście i zasoby rdzenia (wydajność) | `dss-wp-cleanup` |
-| informacje i wejścia, które pomagają atakującemu | `dss-wp-security` |
+| informacje i wejścia, które pomagają atakującemu | `dss-wp-hardening` |
 | dane dla wyszukiwarek i serwisów społecznościowych | `dss-wp-seo` |
 | obrazy, ich warianty i kopie na CDN | `dss-media-suite` |
 | wygląd (HTML, CSS, szablony) | motyw `dss-wp-theme` |
 
 Pytanie kontrolne przy usuwaniu czegoś z WordPressa: **dlaczego usuwamy?** Bo zbędne albo ciężkie:
-`dss-wp-cleanup`. Bo pomaga atakującemu: `dss-wp-security`. Gdy funkcja pasuje do dwóch miejsc albo do
+`dss-wp-cleanup`. Bo pomaga atakującemu: `dss-wp-hardening`. Gdy funkcja pasuje do dwóch miejsc albo do
 żadnego, Claude przedstawia opiekunowi propozycję przed napisaniem kodu.
 
 ## 6. Kod
