@@ -1,0 +1,22 @@
+{
+	"name": "dss/wp-cleanup",
+	"description": "MU-plugin usuwający zbędne wyjście rdzenia WordPressa: emoji, oEmbed, RSS.",
+	"type": "wordpress-muplugin",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://github.com/skotlinski1/dss-wp-cleanup",
+	"keywords": ["wordpress", "mu-plugin", "cleanup", "performance", "emoji"],
+	"authors": [
+		{
+			"name": "Sebastian Kotliński",
+			"role": "Maintainer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/skotlinski1/dss-wp-cleanup/issues",
+		"source": "https://github.com/skotlinski1/dss-wp-cleanup"
+	},
+	"require": {
+		"php": ">=8.3",
+		"composer/installers": "^2.0"
+	}
+}
