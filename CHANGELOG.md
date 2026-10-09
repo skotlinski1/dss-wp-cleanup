@@ -5,6 +5,14 @@ Format wzorowany na [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), we
 `Version:` w `dss-wp-cleanup.php`. Zmiany tylko w plikach spoza paczki (dokumentacja, `.github/`) nie dostają
 numeru: wspomina je najbliższe wydanie.
 
+## 0.2.0 — 2026-10-09
+
+- Emoji: bez skryptu wykrywającego i stylów emoji (front, panel, widok osadzenia) i bez zamiany emoji na
+  obrazki z `s.w.org` w kanałach RSS i e-mailach.
+- Bez linków RSD, shortlink, odkrywania REST API i oEmbed w `<head>` i bez nagłówków `Link` shortlink i REST
+  API. Wpis na Twenty Twenty z `dss-no-blocks`: 30,9 → 26,5 KB HTML.
+- Opcje nieaktywne: linki do kanałów RSS i jQuery Migrate na froncie.
+
 ## 0.1.0 — 2026-10-09
 
 - Pierwsza wersja: pusty MU-plugin `dss-wp-cleanup.php` (nagłówek, wyłącznik awaryjny

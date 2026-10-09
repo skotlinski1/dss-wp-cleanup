@@ -4,11 +4,21 @@ Własny MU-plugin dla WordPressa (`dss-wp-cleanup.php`, paczka Composera `dss/wp
 i zasoby rdzenia WordPressa, których strona nie potrzebuje, a które kosztują bajty, żądania albo pracę
 serwera. To narzędzie na własne potrzeby, bez gwarancji zgodności z innymi konfiguracjami.
 
-**Stan: wersja 0.1.0 nie rejestruje żadnych haków i niczego nie zmienia na stronie.** Plan zakresu:
-[docs/DZIALANIE.md](docs/DZIALANIE.md).
+Bloki rdzenia wyłącza `dss-no-blocks`, zbędne funkcje WooCommerce `dss-lean-woocommerce`, a to, co pomaga
+atakującemu (meta `generator`, XML-RPC, dane o autorach), `dss-wp-security`.
 
 **Dokumentacja:** [docs/](docs/README.md). Instalacja przez Composera w projekcie DSS WP Manage:
 [COMPOSER.md](COMPOSER.md).
+
+## Co robi
+
+- Nie wypisuje skryptu wykrywającego emoji ani stylów emoji (front, panel, widok osadzenia) i nie zamienia
+  emoji na obrazki w kanałach RSS i e-mailach.
+- Nie wypisuje w `<head>` linków RSD, shortlink, odkrywania REST API i oEmbed ani nagłówków `Link` shortlink
+  i REST API. REST API działa dalej.
+
+Każdy hak z powodem i opcje nieaktywne (linki do kanałów RSS, jQuery Migrate):
+[docs/DZIALANIE.md](docs/DZIALANIE.md).
 
 ## Wymagania
 
@@ -23,6 +33,11 @@ Composerem w projekcie DSS WP Manage ([COMPOSER.md](COMPOSER.md)). Wyłącznik a
 ```php
 define('DSS_WP_CLEANUP_DISABLED', true);
 ```
+
+## Pomiary w skrócie
+
+Twenty Twenty na WordPressie 7.1.3 z `dss-no-blocks`: strona główna 24,3 → 20,4 KB, wpis 30,9 → 26,5 KB HTML
+(9 znaczników mniej), czas żądania bez mierzalnej różnicy. Szczegóły: [docs/POMIARY.md](docs/POMIARY.md).
 
 ## Licencja
 
