@@ -136,7 +136,7 @@ composer require dss/wp-cleanup:^0.2
 
 `dss/wp-cleanup` to nazwa pakietu (pole `name` w `composer.json` wtyczki, nie nazwa repo na GitHubie). `^0.2` znaczy: dowolna wersja 0.2.x od 0.2.0 w górę (przy numerach 0.Y.Z każde nowe Y wymaga zmiany wymagania, zob. krok 6).
 
-Po udanej instalacji w wyniku zobaczysz m.in. linię `Installing dss/wp-cleanup (0.2.0)`, a potem etapy DSS kończące się informacją o sukcesie. Composer zmieni `composer.json` (doda wpis w `require`) i `composer.lock`.
+Po udanej instalacji w wyniku zobaczysz m.in. linię `Installing dss/wp-cleanup (0.2.1)`, a potem etapy DSS kończące się informacją o sukcesie. Composer zmieni `composer.json` (doda wpis w `require`) i `composer.lock`.
 
 DSS po instalacji sam uruchamia swoje etapy, więc w projekcie musi być poprawny `.env`. Bez niego polecenie zakończy się błędem DSS (`Cannot read environment file`), a wtyczka i tak zostanie zainstalowana. Uzupełnij `.env` według dokumentacji `dss-wp-manage` i uruchom `composer dss-wp-manage`.
 
@@ -156,7 +156,7 @@ Katalog `public/app/mu/wp-cleanup/` ma być w `.gitignore` projektu witryny (prz
    ```bash
    composer show dss/wp-cleanup
    ```
-   Ma pokazać `versions : * 0.2.0` oraz `path` kończący się na `public/app/mu/wp-cleanup`.
+   Ma pokazać `versions : * 0.2.1` oraz `path` kończący się na `public/app/mu/wp-cleanup`.
 2. Sprawdź wpis w loaderze:
    ```bash
    grep wp-cleanup public/app/mu/dss-wp-manage-mu-loader.php

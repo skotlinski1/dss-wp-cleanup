@@ -2,7 +2,7 @@
 /**
  * Plugin Name: DSS — Cleanup
  * Description: Usuwa zbędne wyjście rdzenia WordPressa (emoji, oEmbed, RSS, linki w head). MU-plugin.
- * Version: 0.2.0
+ * Version: 0.2.1
  * License: GPL-2.0-or-later
  *
  * Własny MU-plugin: zakłada aktualne stabilne WordPress (7.0+) oraz PHP 8.3+.
@@ -11,7 +11,7 @@
  * Zakres (SRP): wyjście i zasoby rdzenia WordPressa, których strona nie potrzebuje, a które kosztują
  * bajty, żądania albo pracę serwera (emoji, oEmbed, RSS, zbędne linki w <head>, jQuery Migrate,
  * Heartbeat). Pytanie kontrolne: „dlaczego usuwamy?”. Bo zbędne albo ciężkie: tutaj. Bo pomaga
- * atakującemu: dss-wp-security. Bloki rdzenia wyłącza dss-no-blocks, a zbędne funkcje WooCommerce
+ * atakującemu: dss-wp-hardening. Bloki rdzenia wyłącza dss-no-blocks, a zbędne funkcje WooCommerce
  * dss-lean-woocommerce.
  *
  * Zasada: aktywne są tylko odpięcia rzeczy, z których strona nie korzysta. Zakomentowane linie

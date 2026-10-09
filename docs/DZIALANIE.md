@@ -64,7 +64,7 @@ Funkcję `remove_jquery_migrate()` sprawdzono bez włączania haka: na WordPress
 |---|---|
 | Gutenberg i bloki rdzenia | `dss-no-blocks` |
 | zbędne funkcje i zasoby WooCommerce | `dss-lean-woocommerce` (repo `dss-disable-woo-bloatware`) |
-| meta `generator`, XML-RPC, dane o autorach (pomagają atakującemu) | `dss-wp-security` |
+| meta `generator`, XML-RPC, dane o autorach (pomagają atakującemu) | `dss-wp-hardening` |
 | dane SEO | `dss-wp-seo` |
 | obrazy i ich warianty | `dss-media-suite` |
 
