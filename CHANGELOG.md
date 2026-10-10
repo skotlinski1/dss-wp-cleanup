@@ -5,6 +5,16 @@ Format wzorowany na [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), we
 `Version:` w `dss-wp-cleanup.php`. Zmiany tylko w plikach spoza paczki (dokumentacja, `.github/`) nie dostają
 numeru: wspomina je najbliższe wydanie.
 
+## 0.3.0 — 2026-10-10
+
+- Kanały RSS i Atom wyłączone: adresy kanałów (`/feed/`, `/comments/feed/`, kanały kategorii, wpisu, autorów i
+  wyszukiwania, `?feed=`) dają 404, a linki do nich znikają z `<head>`. Czytniki RSS i automatyzacje, które
+  subskrybowały kanał, dostają 404. Znika też nazwa wyświetlana autora, którą kanał podawał w `<dc:creator>`.
+
+### Aktualizacja
+
+- W `composer.json` strony: `"dss/wp-cleanup": "^0.3"`.
+
 ## 0.2.1 — 2026-10-09
 
 - Komentarze i dokumentacja: wtyczka od rzeczy, które pomagają atakującemu, to `dss-wp-hardening` (repo

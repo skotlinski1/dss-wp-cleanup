@@ -4,8 +4,8 @@ Zakres (SRP): wyjście i zasoby rdzenia WordPressa, których strona nie potrzebu
 żądania albo pracę serwera. Podział między wtyczki DSS: sekcja 5
 [`.github/CONTRIBUTING.md`](../.github/CONTRIBUTING.md#5-zakres-i-podział-między-wtyczki).
 
-Aktywne są tylko odpięcia rzeczy, z których strona nie korzysta. Odpięcia, które mogą coś odebrać (kanały RSS,
-jQuery Migrate), są w kodzie zakomentowane, z powodem i warunkiem włączenia. Wszystkie haki rejestruje
+Aktywne są tylko odpięcia rzeczy, z których strona nie korzysta. Odpięcie, które może coś odebrać (jQuery
+Migrate), jest w kodzie zakomentowane, z powodem i warunkiem włączenia. Wszystkie haki rejestruje
 `configure()` na `plugins_loaded`; haki panelu dopiero na `admin_init`, bo rdzeń dodaje je w
 `wp-admin/includes/admin-filters.php` po `plugins_loaded`. Nazwy i priorytety sprawdzone w kodzie WordPressa
 7.1.3.
@@ -48,11 +48,33 @@ REST API działa dalej (także `/wp-json/oembed/1.0/embed`), a osadzanie treści
 tej stronie nie zależy od tych linków. Inne strony WordPressa nie znajdą jednak automatycznie podglądu wpisów
 tej strony przy wklejeniu linku.
 
+### Kanały RSS i Atom
+
+Strona nie publikuje kanałów (nikt z nich nie korzysta), a każdy adres kanału to dynamiczne zapytanie, które
+boty kopiujące treść mogą odpytywać bez końca.
+
+| Hak | Funkcja | Priorytet | Co robi |
+|---|---|---|---|
+| `wp_head` | `feed_links` | 2 | znikają linki do kanału głównego i kanału komentarzy |
+| `wp_head` | `feed_links_extra` | 3 | znikają linki do kanałów kategorii, wpisu i komentarzy wpisu |
+| `template_redirect` | `disable_feed_request` | 1 | adresy kanałów dają 404 ze stroną 404 motywu |
+
+`disable_feed_request` działa przy każdym żądaniu kanału (`/feed/`, `/feed/atom/`, `/feed/rdf/`,
+`/comments/feed/`, `/wpis/feed/`, kanały kategorii, autorów i wyszukiwania, `?feed=`). Robi pięć rzeczy: woła
+`set_404()` i zeruje `is_feed` oraz `is_comment_feed` (`set_404()` zostawia `is_feed`, więc bez tego rdzeń nadal
+budowałby kanał, tylko z kodem 404), ustawia kod 404 i nagłówki bez cache, przywraca `Content-Type` HTML
+(rdzeń ustawia typ kanału wcześniej, w `WP::send_headers()`) i wyłącza zgadywanie adresu dla 404
+(`do_redirect_guess_404_permalink`), żeby `/wpis/feed/` nie przekierowywało na wpis. Priorytet 1 jest przed
+`redirect_canonical` (10).
+
+Czytniki RSS i automatyzacje, które subskrybowały kanał, dostają 404. Mapa witryny (`wp-sitemap.xml`), REST API,
+logowanie i panel działają bez zmian. Jeśli strona kiedyś ma publikować kanał, usuń te trzy odpięcia z
+`configure_feeds()`.
+
 ## Opcje nieaktywne
 
 | Opcja | Co robi | Włącz, jeśli |
 |---|---|---|
-| linki do kanałów RSS | odpina `feed_links` (2) i `feed_links_extra` (3) z `wp_head`; kanały pod `/feed/` działają dalej | strona nie publikuje kanałów RSS |
 | jQuery Migrate | usuwa `jquery-migrate` z zależności `jquery` na froncie (panel bez zmian) przez `remove_jquery_migrate()` na `wp_default_scripts` | konsola przeglądarki nie pokazuje ostrzeżeń `JQMIGRATE` na stronach sklepu (koszyk, kasa, produkt) i w motywie |
 
 Funkcję `remove_jquery_migrate()` sprawdzono bez włączania haka: na WordPressie 7.1.3 zmienia zależności

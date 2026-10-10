@@ -26,6 +26,9 @@ Czas żądania: bez mierzalnej różnicy (mediana 15 żądań wpisu z CLI 252 i 
 wykrywający emoji pobiera dodatkowy plik tylko w przeglądarce bez obsługi emoji, więc w nowych przeglądarkach
 zysk to bajty HTML i praca skryptu, a nie liczba żądań.
 
+Pomiar nie obejmuje linków do kanałów RSS, które wtyczka też usuwa z `<head>` (2 na stronie głównej, 3 na
+wpisie): ich rozmiar nie był mierzony.
+
 ## Jak powtórzyć pomiar na swojej stronie
 
 Porównaj źródło strony z wtyczką i z `define('DSS_WP_CLEANUP_DISABLED', true);` w `wp-config.php`: rozmiar

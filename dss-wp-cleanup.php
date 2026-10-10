@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: DSS — Cleanup
- * Description: Usuwa zbędne wyjście rdzenia WordPressa (emoji, oEmbed, RSS, linki w head). MU-plugin.
- * Version: 0.2.1
+ * Description: Usuwa zbędne wyjście rdzenia WordPressa (emoji, oEmbed, kanały RSS, linki w head). MU-plugin.
+ * Version: 0.3.0
  * License: GPL-2.0-or-later
  *
  * Własny MU-plugin: zakłada aktualne stabilne WordPress (7.0+) oraz PHP 8.3+.
@@ -112,13 +112,40 @@ function configure_head_links(): void
 	remove_action('wp_head', 'wp_oembed_add_discovery_links');
 }
 
-/** Kanały RSS: zostają, dopóki nie wiadomo, czy strona je publikuje. */
+/**
+ * Kanały RSS i Atom: strona ich nie publikuje (nikt z nich nie korzysta), a każdy adres kanału to dynamiczne
+ * zapytanie, które boty kopiujące treść mogą odpytywać bez końca. Linki do kanałów znikają z `<head>`
+ * (główny, komentarzy, kategorii i komentarzy wpisu), a adresy kanałów (`/feed/`, `/comments/feed/`, kanały
+ * kategorii, wpisu i wyszukiwania, `?feed=`) dają 404 ze stroną 404 motywu.
+ */
 function configure_feeds(): void
 {
-	/* Linki do kanałów RSS w <head> (główny, komentarzy, kategorii i komentarzy wpisu). Same kanały pod
-	 * /feed/ działają dalej. Włącz, jeśli strona nie publikuje kanałów RSS. */
-	// remove_action('wp_head', 'feed_links', 2);
-	// remove_action('wp_head', 'feed_links_extra', 3);
+	remove_action('wp_head', 'feed_links', 2);
+	remove_action('wp_head', 'feed_links_extra', 3);
+
+	// Priorytet 1: przed redirect_canonical (10), który przekierowywałby ?feed= na /feed/.
+	add_action('template_redirect', __NAMESPACE__ . '\\disable_feed_request', 1);
+}
+
+/** Zamienia żądanie kanału na 404. */
+function disable_feed_request(): void
+{
+	global $wp_query;
+
+	if (!is_feed() || !$wp_query instanceof \WP_Query) {
+		return;
+	}
+
+	$wp_query->set_404();
+	// set_404() zostawia is_feed, a wtedy szablon dalej budowałby kanał (z kodem 404).
+	$wp_query->is_feed = false;
+	$wp_query->is_comment_feed = false;
+	status_header(404);
+	nocache_headers();
+	// Rdzeń ustawił już nagłówek Content-Type kanału (WP::send_headers()); strona 404 jest HTML-em.
+	header('Content-Type: ' . get_option('html_type') . '; charset=' . get_option('blog_charset'));
+	// Bez tego rdzeń zgadywałby wpis dla /wpis/feed/ i przekierowywał na niego zamiast dać 404.
+	add_filter('do_redirect_guess_404_permalink', '__return_false');
 }
 
 /** Skrypty rdzenia na froncie. */
