@@ -45,4 +45,7 @@ Po wdrożeniu i po każdej większej aktualizacji WordPressa:
    pokazuje priorytety z rdzenia (7, 10 i 4); inne liczby znaczą, że rdzeń zmienił priorytet i odpięcie trzeba
    poprawić.
 
+3. Kanały RSS są wyłączone: `curl -sI https://twoja-domena.pl/feed/` daje `404`, a w źródle strony nie ma
+   `application/rss+xml`.
+
 Lista wszystkich haków z priorytetami: [DZIALANIE.md](DZIALANIE.md#haki-aktywne).

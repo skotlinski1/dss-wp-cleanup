@@ -16,8 +16,10 @@ atakującemu (meta `generator`, XML-RPC, dane o autorach), `dss-wp-hardening`.
   emoji na obrazki w kanałach RSS i e-mailach.
 - Nie wypisuje w `<head>` linków RSD, shortlink, odkrywania REST API i oEmbed ani nagłówków `Link` shortlink
   i REST API. REST API działa dalej.
+- Nie publikuje kanałów RSS i Atom: adresy kanałów (`/feed/`, `/comments/feed/`, `?feed=` itd.) dają 404, a
+  linki do nich znikają z `<head>`.
 
-Każdy hak z powodem i opcje nieaktywne (linki do kanałów RSS, jQuery Migrate):
+Każdy hak z powodem i opcja nieaktywna (jQuery Migrate):
 [docs/DZIALANIE.md](docs/DZIALANIE.md).
 
 ## Wymagania
