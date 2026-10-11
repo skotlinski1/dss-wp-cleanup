@@ -131,10 +131,10 @@ Jeśli sekcje `installer-paths` i `dss-wp-manage` już istnieją, **nie twórz d
 ### 3c. Zainstaluj wtyczkę
 
 ```bash
-composer require dss/wp-cleanup:^0.3
+composer require "dss/wp-cleanup:~0.3"
 ```
 
-`dss/wp-cleanup` to nazwa pakietu (pole `name` w `composer.json` wtyczki, nie nazwa repo na GitHubie). `^0.3` znaczy: dowolna wersja 0.3.x od 0.3.0 w górę (przy numerach 0.Y.Z każde nowe Y wymaga zmiany wymagania, zob. krok 6).
+`dss/wp-cleanup` to nazwa pakietu (pole `name` w `composer.json` wtyczki, nie nazwa repo na GitHubie). `~0.3` znaczy: dowolna wersja od 0.3.0 do przed 1.0.0 (każda nowa wersja 0.Y trafia do projektu przez `composer update`, zob. krok 6).
 
 Po udanej instalacji w wyniku zobaczysz m.in. linię `Installing dss/wp-cleanup (0.3.0)`, a potem etapy DSS kończące się informacją o sukcesie. Composer zmieni `composer.json` (doda wpis w `require`) i `composer.lock`.
 
@@ -187,8 +187,8 @@ Uwaga: na liście **Wtyczki → Must-Use** zobaczysz tylko „DSS WP Manage MU p
    cd ~/Projects/example.com
    composer update dss/wp-cleanup
    ```
-   Ograniczenie `^0.3` pozwala tylko na wersje 0.3.x. Na 0.4.0 (i każde kolejne Y, także 1.0.0) trzeba najpierw zmienić wymaganie w `composer.json` (np. na `^0.4`).
-4. Sprawdź jak w kroku 4, zrób commit `composer.json` i `composer.lock` i wdróż jak w kroku 5.
+   Ograniczenie `~0.3` pozwala na każdą wersję od 0.3.0 do przed 1.0.0, więc `composer update` bierze także nowe 0.Y. Dopiero `1.0.0` trzeba najpierw dopuścić w `composer.json` (zmień `~0.3` na `^1.0`).
+4. Sprawdź jak w kroku 4, zrób commit `composer.lock` (z `composer.json`, jeśli zmieniłeś wymaganie) i wdróż jak w kroku 5.
 
 Nie używaj `"dev-main"` zamiast tagów na produkcji: Composer sklonuje wtedy całe repo i w `public/app/mu/wp-cleanup/` pojawi się katalog `.git` z historią kodu.
 
@@ -208,7 +208,7 @@ Composer usunie katalog `public/app/mu/wp-cleanup/`, wpis z `composer.json` i `c
 |---|---|
 | `Root composer.json requires dss/wp-cleanup, it could not be found in any version` | Brak repo w `repositories` (krok 3a), nazwa w `require` inna niż `dss/wp-cleanup`, brak tagu (krok 1) albo brak dostępu do repo (zły lub wygasły token). |
 | `Could not authenticate against github.com` albo pytanie o hasło w terminalu | Brak `auth.json` (albo `COMPOSER_AUTH`) w katalogu projektu, najczęściej na serwerze, albo token wygasł lub nie obejmuje tego repo (krok 2). |
-| `found dss/wp-cleanup[…] but it does not match the constraint` | W repo nie ma tagu pasującego do wymagania (np. wpisałeś `^0.4`, a są tylko 0.3.x). Zmień wymaganie albo utwórz tag. |
+| `found dss/wp-cleanup[…] but it does not match the constraint` | W repo nie ma tagu pasującego do wymagania (np. wpisałeś `~0.4`, a są tylko 0.3.x). Zmień wymaganie albo utwórz tag. |
 | `must contain exactly one main PHP file with a Plugin Name header … found 2` (albo `found 0`) | W katalogu głównym wtyczki są dwa pliki z `Plugin Name:` albo żaden. Popraw repo wtyczki, wydaj nowy tag i zrób `composer update dss/wp-cleanup`. |
 | Wtyczka leży w `wp-content/mu-plugins/wp-cleanup`, a nie w `public/app/mu/` | Brak `installer-paths` albo nie pasuje do `mu-plugins-dir` (krok 3b). DSS podaje regułę do wklejenia. |
 | Wtyczka ładuje się dwa razy | Główny plik jest też w `autoload.files` pakietu. Tu go tam nie ma, więc nie dodawaj. |
